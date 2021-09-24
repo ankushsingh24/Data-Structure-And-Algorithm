@@ -2,6 +2,7 @@
 using namespace std;
 
 // nCr = n! / (r! * (n - r)!)
+// nCr = (n-1)Cr + (n-1)C(r-1)
 
 // 1
 int factorial(int n)
