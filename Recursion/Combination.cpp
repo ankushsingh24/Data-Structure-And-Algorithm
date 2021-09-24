@@ -4,7 +4,7 @@ using namespace std;
 // nCr = n! / (r! * (n - r)!)
 // nCr = (n-1)Cr + (n-1)C(r-1)
 
-// 1
+// Approach 1
 int factorial(int n)
 {
     if (n == 0)
@@ -26,7 +26,7 @@ int combination(int n, int r)
     return a / (b * c);
 }
 
-// 2
+// Approach 2
 int PascalCombination(int n, int r)
 {
     if (n == r || r == 0)
