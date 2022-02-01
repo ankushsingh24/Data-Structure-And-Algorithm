@@ -25,11 +25,12 @@ void create(struct Sparse *s)
 
     s->elements = new Element[s->num];
 
-    cout << "Enter the non-zero elements : ";
-    for (int i = 0; i < s->m; i++)
+    cout << "Enter the non-zero elements : " << endl;
+    for (int i = 0; i < s->num; i++)
     {
         cin >> s->elements[i].i >> s->elements[i].j >> s->elements[i].x;
     }
+    cout << endl;
 }
 
 void display(struct Sparse s)
