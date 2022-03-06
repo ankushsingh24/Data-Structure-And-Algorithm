@@ -44,6 +44,26 @@ void insert(int key)
         r->rchild = p;
 }
 
+Node *RecursiveInsert(Node *p, int key)
+{
+    Node *t = NULL;
+
+    if (p == NULL)
+    {
+        t = new Node;
+        t->data = key;
+        t->lchild = t->rchild = NULL;
+        return t;
+    }
+
+    if (key < p->data)
+        p->lchild = RecursiveInsert(p->lchild, key);
+    else if (key > p->data)
+        p->rchild = RecursiveInsert(p->rchild, key);
+
+    return p;
+}
+
 void inOrder(Node *p)
 {
     if (p)
@@ -72,19 +92,25 @@ Node *search(int key)
 
 int main()
 {
-    insert(10);
-    insert(5);
-    insert(20);
-    insert(8);
-    insert(30);
+    // insert(10);
+    // insert(5);
+    // insert(20);
+    // insert(8);
+    // insert(30);
+
+    root = RecursiveInsert(root, 10);
+    RecursiveInsert(root, 5);
+    RecursiveInsert(root, 20);
+    RecursiveInsert(root, 8);
+    RecursiveInsert(root, 30);
 
     inOrder(root);
     cout << endl;
 
     Node *temp;
-    temp = search(7);
+    temp = search(20);
     if (temp != NULL)
-        cout << "Element " << temp->data << " Found\n ";
+        cout << "Element " << temp->data << " Found\n";
     else
         cout << "Element Not Found\n";
     return 0;
