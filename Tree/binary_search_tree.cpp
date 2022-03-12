@@ -64,6 +64,72 @@ Node *RecursiveInsert(Node *p, int key)
     return p;
 }
 
+int Height(Node *p)
+{
+    int x, y;
+    if (p == NULL)
+        return 0;
+
+    x = Height(p->lchild);
+    y = Height(p->rchild);
+
+    return x > y ? x + 1 : y + 1;
+}
+
+Node *InPre(Node *p) // rightmost child of left subtree
+{
+    while (p && p->rchild != NULL)
+        p = p->rchild;
+
+    return p;
+}
+
+Node *InSucc(Node *p) // // leftmost child of right subtree
+{
+    while (p && p->lchild != NULL)
+        p = p->lchild;
+
+    return p;
+}
+
+Node *Delete(Node *p, int key)
+{
+    Node *q = NULL;
+
+    if (p == NULL)
+        return NULL;
+
+    if (p->lchild == NULL && p->rchild == NULL)
+    {
+        if (p == root)
+            root = NULL;
+        delete p;
+        return NULL;
+    }
+
+    if (key < p->data)
+        p->lchild = Delete(p->lchild, key);
+    else if (key > p->data)
+        p->rchild = Delete(p->rchild, key);
+    else
+    {
+        if (Height(p->lchild) > Height(p->rchild))
+        {
+            q = InPre(p->lchild);
+            p->data = q->data;
+            p->lchild = Delete(p->lchild, q->data);
+        }
+
+        else
+        {
+            q = InSucc(p->rchild);
+            p->data = q->data;
+            p->rchild = Delete(p->rchild, q->data);
+        }
+    }
+    return p;
+}
+
 void inOrder(Node *p)
 {
     if (p)
@@ -98,11 +164,13 @@ int main()
     // insert(8);
     // insert(30);
 
-    root = RecursiveInsert(root, 10);
-    RecursiveInsert(root, 5);
+    root = RecursiveInsert(root, 50);
+    RecursiveInsert(root, 10);
+    RecursiveInsert(root, 40);
     RecursiveInsert(root, 20);
-    RecursiveInsert(root, 8);
     RecursiveInsert(root, 30);
+
+    Delete(root, 30);
 
     inOrder(root);
     cout << endl;
