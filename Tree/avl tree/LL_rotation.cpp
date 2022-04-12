@@ -47,7 +47,25 @@ Node *LL_Rotation(Node *p)
 
 Node *LR_Rotation(Node *p)
 {
-    return NULL;
+    Node *pl = p->lchild;
+    Node *plr = pl->rchild;
+
+    pl->rchild = plr->lchild;
+    p->lchild = plr->rchild;
+
+    plr->lchild = pl;
+    plr->rchild = p;
+
+    pl->height = NodeHeight(pl);
+    p->height = NodeHeight(p);
+    plr->height = NodeHeight(plr);
+
+    if (root == p)
+        root = plr;
+
+    cout << "New Root Node : " << plr->data;
+
+    return plr;
 }
 
 Node *RR_Rotation(Node *p)
@@ -97,9 +115,9 @@ Node *RecursiveInsert(Node *p, int key)
 
 int main()
 {
-    root = RecursiveInsert(root, 10);
-    RecursiveInsert(root, 5);
-    RecursiveInsert(root, 2);
+    root = RecursiveInsert(root, 50);
+    RecursiveInsert(root, 10);
+    RecursiveInsert(root, 20);
 
     return 0;
 }
