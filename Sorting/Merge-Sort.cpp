@@ -1,6 +1,11 @@
 #include <iostream>
 using namespace std;
 
+// Post Order merging
+
+// TC: O(nlogn)
+// SC: O(n+logn)
+
 void Merge(int A[], int low, int mid, int high)
 {
     int i = low, j = mid + 1, k = low;
@@ -43,12 +48,25 @@ void IMergeSort(int A[], int n)
         Merge(A, 0, p / 2 - 1, n - 1);
 }
 
+void MergeSort(int A[], int low, int high)
+{
+    if (low < high)
+    {
+        int mid = (low + high) / 2;
+
+        MergeSort(A, low, mid);
+        MergeSort(A, mid + 1, high);
+        Merge(A, low, mid, high);
+    }
+}
+
 int main()
 {
     int A[] = {3, 7, 9, 10, 6, 5, 12, 4, 11, 2};
     int n = 10;
 
-    IMergeSort(A, n);
+    // IMergeSort(A, n);
+    MergeSort(A, 0, n - 1);
 
     for (int i = 0; i < n; i++)
     {
